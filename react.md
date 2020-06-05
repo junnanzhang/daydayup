@@ -34,3 +34,42 @@
 ['div', {id: 'abc'}, ['span', {}, 'bye bye']]
 7. 比较原始虚拟DOM和新的虚拟DOM的区别，找到区别是span中内容（极大的提升性能）
 8. 直接操作DOM，改变span中的内容
+
+#自定义属性传值
+
+```
+const A = 65 // ASCII character code
+
+class Alphabet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      justClicked: null,
+      letters: Array.from({length: 26}, (_, i) => String.fromCharCode(A + i))
+    };
+  }
+
+  handleClick(e) {
+    this.setState({
+      justClicked: e.target.dataset.letter
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        Just clicked: {this.state.justClicked}
+        <ul>
+          {this.state.letters.map(letter =>
+            <li key={letter} data-letter={letter} onClick={this.handleClick}>
+              {letter}
+            </li>
+          )}
+        </ul>
+      </div>
+    )
+  }
+}
+
+```

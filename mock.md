@@ -1,0 +1,1 @@
+Create react app可以在public/api下面新建文件作为假数据json
